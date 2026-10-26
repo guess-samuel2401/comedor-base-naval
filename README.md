@@ -9,15 +9,35 @@ Programa de escritorio para Windows que lleva:
 
 Es de **control interno**: los comprobantes dicen “No válido como factura” y no se envían al SRI.
 
-## Requisitos e inicio
+## Descarga e instalación (sin Python)
 
-Solo necesita **Python 3.10 o superior** (no requiere librerías adicionales ni internet).
+1. Descargue **`ComedorBaseNaval.exe`** desde la sección
+   [Releases](https://github.com/guess-samuel2401/comedor-base-naval/releases/latest).
+2. Cree una carpeta, por ejemplo `C:\Comedor` o en el Escritorio, y copie ahí el `.exe`.
+3. Doble clic para abrirlo. Si Windows muestra «Windows protegió su PC», pulse **Más información →
+   Ejecutar de todas formas** (aparece porque el programa no tiene firma digital comercial).
 
-- Doble clic en **`Iniciar Comedor.bat`**, o
-- desde una terminal en esta carpeta: `python main.py`
+Los datos se guardan en la carpeta **`datos`** que se crea junto al `.exe`. Para actualizar a una versión
+nueva, reemplace solo el `.exe`: la carpeta `datos` se conserva. Si el `.exe` está en una carpeta sin
+permiso de escritura (como *Archivos de programa*), los datos van a `%LOCALAPPDATA%\ComedorBaseNaval\datos`.
+La ruta exacta se muestra en **Configuración**.
 
-Los datos se guardan en `datos\comedor.db`. Los comprobantes y reportes impresos se guardan en
-`datos\impresiones\` y se abren en el navegador (Ctrl+P para imprimir o guardar como PDF).
+Los comprobantes y reportes impresos se guardan en `datos\impresiones\` y se abren en el navegador
+(Ctrl+P para imprimir o guardar como PDF).
+
+## Ejecutar desde el código fuente
+
+Requiere **Python 3.10 o superior** (sin librerías adicionales). Doble clic en **`Iniciar Comedor.bat`**,
+o en una terminal: `python main.py`. En este modo los datos van a `datos\` dentro de la carpeta del proyecto.
+
+Para generar el `.exe`:
+
+```
+python -m pip install pyinstaller
+python construir.py
+```
+
+El resultado queda en `dist\ComedorBaseNaval.exe`. La versión se toma de `comedor/__init__.py`.
 
 ## Primeros pasos
 
@@ -56,12 +76,14 @@ Los datos se guardan en `datos\comedor.db`. Los comprobantes y reportes impresos
 
 En **Configuración → Crear respaldo…** se genera una copia completa de la base de datos. Hágalo cada semana
 y guárdela fuera de la computadora. Para restaurar: cierre el programa y reemplace `datos\comedor.db` por el
-respaldo.
+respaldo (cuya ubicación aparece en Configuración).
 
 ## Estructura del código
 
 ```
 main.py                 punto de entrada
+construir.py            genera el .exe con PyInstaller
+recursos/               ícono del programa
 comedor/
   db.py                 esquema SQLite, configuración y respaldos
   personal.py           personal y su importación desde CSV

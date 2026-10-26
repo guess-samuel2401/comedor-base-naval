@@ -25,6 +25,9 @@ class Aplicacion(tk.Tk):
         self.con = con
         self.geometry("1280x760")
         self.minsize(1100, 640)
+        icono = db.RECURSOS / "comedor.ico"
+        if icono.exists():
+            self.iconbitmap(default=str(icono))
         self._estilos()
         self.report_callback_exception = self._error
 
@@ -96,9 +99,10 @@ class Aplicacion(tk.Tk):
 
 
 def main():
-    try:  # textos nítidos en pantallas con escala de Windows
+    try:  # textos nítidos en pantallas con escala de Windows, e ícono propio en la barra de tareas
         import ctypes
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ComedorBaseNaval.Facturacion")
     except Exception:
         pass
     con = db.conectar()

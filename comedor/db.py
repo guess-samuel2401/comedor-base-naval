@@ -1,10 +1,32 @@
 """Conexión, esquema y configuración de la base de datos SQLite."""
 import os
 import sqlite3
+import sys
 from pathlib import Path
 
+CONGELADO = getattr(sys, "frozen", False)  # ejecutándose como .exe generado con PyInstaller
 RAIZ = Path(__file__).resolve().parent.parent
-RUTA_DB = Path(os.environ.get("COMEDOR_DB") or RAIZ / "datos" / "comedor.db")
+# Archivos empaquetados (ícono): dentro del .exe están en la carpeta temporal de PyInstaller.
+RECURSOS = Path(getattr(sys, "_MEIPASS", RAIZ)) / "recursos"
+
+
+def _carpeta_datos():
+    """En el .exe los datos van junto al programa (portátil); si ahí no se puede escribir,
+    por ejemplo en Archivos de programa, van a %LOCALAPPDATA%."""
+    if not CONGELADO:
+        return RAIZ / "datos"
+    junto_al_exe = Path(sys.executable).resolve().parent / "datos"
+    try:
+        junto_al_exe.mkdir(parents=True, exist_ok=True)
+        prueba = junto_al_exe / ".escritura"
+        prueba.write_text("ok")
+        prueba.unlink()
+        return junto_al_exe
+    except OSError:
+        return Path(os.environ.get("LOCALAPPDATA", Path.home())) / "ComedorBaseNaval" / "datos"
+
+
+RUTA_DB = Path(os.environ.get("COMEDOR_DB") or _carpeta_datos() / "comedor.db")
 
 ESQUEMA = """
 CREATE TABLE IF NOT EXISTS config (

@@ -18,3 +18,8 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# Construcción del ejecutable
+build/
+dist/
+*.spec
