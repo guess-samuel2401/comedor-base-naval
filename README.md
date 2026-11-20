@@ -1,4 +1,16 @@
-# Sistema de facturación y costos – Comedor de base naval
+<div align="center">
+
+# ⚓ Comedor Base Naval
+
+**Sistema de facturación y control de costos para el comedor de una base naval: raciones, caja, bodega y reportes.**
+
+[![Release](https://img.shields.io/github/v/release/guess-samuel2401/comedor-base-naval?style=flat-square&label=versi%C3%B3n&color=1f4e79)](https://github.com/guess-samuel2401/comedor-base-naval/releases/latest)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)
+![Tkinter](https://img.shields.io/badge/Tkinter-GUI-4B8BBE?style=flat-square)
+![SQLite](https://img.shields.io/badge/SQLite-base_local-003B57?style=flat-square&logo=sqlite&logoColor=white)
+![Windows](https://img.shields.io/badge/Windows-10%2F11-0078D6?style=flat-square&logo=windows&logoColor=white)
+
+</div>
 
 Programa de escritorio para Windows que lleva:
 
